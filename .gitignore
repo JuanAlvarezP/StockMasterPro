@@ -1,0 +1,49 @@
+# ──────────────────────────────
+# Java / Maven / Gradle
+# ──────────────────────────────
+target/
+build/
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.log
+
+# ──────────────────────────────
+# IDEs
+# ───── IntelliJ IDEA ──────────
+.idea/
+*.iws
+*.ipr
+
+# ───── Eclipse ────────────────
+.settings/
+.classpath
+.project
+
+# ──────────────────────────────
+# Sistema Operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ──────────────────────────────
+# Archivos temporales y de respaldo
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# ──────────────────────────────
+# OpenXava específicos
+# ──────────────────────────────
+/xava/logs/
+/xava/generated/
+
+# ──────────────────────────────
+# Configuración personal
+*.env
+*.local.properties
+
