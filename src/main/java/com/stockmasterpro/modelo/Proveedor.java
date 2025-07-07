@@ -42,7 +42,7 @@ public class Proveedor {
     @ReadOnly
     private Date fechaRegistro = new Date();
     
-    @OneToMany(mappedBy = "proveedorPrincipal")
+    @OneToMany(mappedBy = "proveedor")  // Cambiado de "proveedorPrincipal" a "proveedor"
     @ListProperties("codigo, nombre, precio")
     private Collection<Producto> productos;
 }

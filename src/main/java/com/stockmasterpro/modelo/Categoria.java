@@ -26,7 +26,7 @@ public class Categoria {
     @ReadOnly
     private BigDecimal porcentajeIva = new BigDecimal("0.15"); // IVA fijo al 15%
     
-    @OneToMany(mappedBy="categoria")
-    @ListProperties("codigo, nombre, precio, precioConIva")
+    @OneToMany(mappedBy = "categoria")  // Debe coincidir exactamente con el nombre en Producto
+    @ListProperties("codigo, nombre, precio")
     private Collection<Producto> productos;
 }

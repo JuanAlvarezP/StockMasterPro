@@ -37,7 +37,6 @@ public class DetalleVenta {
         }
     }
     
-    // Constructor simplificado para pruebas
     public DetalleVenta() {}
     
     public DetalleVenta(Producto producto, int cantidad) {

@@ -10,6 +10,13 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 @Entity @Getter @Setter
+@View(members=
+"datos[" +
+"  codigo, nombre;" +
+"  precio, descuento, tipoDescuento;" +
+"  valorIva, precioConIva, precioFinal;" +
+"]"
+)
 public class Producto {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,52 +29,36 @@ public class Producto {
     @Column(length=100) @Required
     private String nombre;
     
-    @Column(length=500)
-    private String descripcion;
-    
     @Money @Required
     private BigDecimal precio;
-    
-    @Money @ReadOnly
-    private BigDecimal precioConIva;
     
     @Money @ReadOnly
     private BigDecimal valorIva;
     
     @Money @ReadOnly
-    private BigDecimal precioFinal; // Precio con IVA y descuento
+    private BigDecimal precioConIva;
+    
+    @Money @ReadOnly
+    private BigDecimal precioFinal;
     
     @Stereotype("PORCENTAJE")
     private BigDecimal descuento = BigDecimal.ZERO;
     
-    @Required
-    private Integer stockActual = 0;
-    
-    @Required
-    private Integer stockMinimo = 5;
+    @Transient @ReadOnly
+    @Depends("descuento")
+    private String tipoDescuento;
     
     @ReadOnly
     private Date fechaCreacion = new Date();
     
     private Date fechaActualizacion;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @DescriptionsList
-    private Categoria categoria;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @DescriptionsList
-    private Proveedor proveedorPrincipal;
-    
+
+    // ===== CÁLCULOS PRINCIPALES ===== //
     @PrePersist
     @PreUpdate
     private void calcularPrecios() {
         this.fechaActualizacion = new Date();
-        
-        // 1. Cálculo del IVA al 15%
         calcularIva();
-        
-        // 2. Aplicar descuento si existe
         aplicarDescuento();
     }
     
@@ -80,7 +71,7 @@ public class Producto {
         }
     }
     
-    public void aplicarDescuento() {
+    private void aplicarDescuento() {
         if (this.precioConIva != null && this.descuento != null) {
             BigDecimal montoDescuento = this.precioConIva.multiply(this.descuento)
                                               .setScale(2, RoundingMode.HALF_UP);
@@ -90,6 +81,29 @@ public class Producto {
         }
     }
     
+    public String determinarTipoDescuento() {
+        if (this.descuento == null || this.descuento.compareTo(BigDecimal.ZERO) == 0) {
+            return "SIN_DESCUENTO";
+        } else if (this.descuento.compareTo(new BigDecimal("0.10")) <= 0) {
+            return "DESCUENTO_NORMAL (hasta 10%)";
+        } else if (this.descuento.compareTo(new BigDecimal("0.20")) <= 0) {
+            return "DESCUENTO_ESPECIAL (11-20%)";
+        } else {
+            return "DESCUENTO_EXTRA (más de 20%)";
+        }
+    }
     
-
+    public String getTipoDescuento() {
+        return determinarTipoDescuento();
+    }
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "proveedor_id")  // Añadido para clarificar la columna
+    @DescriptionsList
+    private Proveedor proveedor;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id")  // Columna en la tabla producto
+    @DescriptionsList
+    private Categoria categoria;
 }

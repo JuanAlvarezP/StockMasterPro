@@ -25,7 +25,6 @@ public class Cliente {
     @Email
     private String email;
     
-    // Constructor simplificado para pruebas
     public Cliente() {}
     
     public Cliente(String cedula, String nombre) {
