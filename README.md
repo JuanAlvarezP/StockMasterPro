@@ -76,7 +76,7 @@ Como parte de los requisitos del curso, se aplicaron diversas técnicas y metodo
         * Particiones de Equivalencia.
         * Análisis de Valores Límite.
 
-> 📄 **Nota:** Todos los documentos, diagramas, casos de prueba y reportes de resultados se encuentran en la carpeta `/documentos` del repositorio.
+
 
 ## 👨‍💻 Autores
 
