@@ -38,7 +38,7 @@ Sigue estos pasos para clonar y ejecutar el proyecto en tu máquina local.
 
 1.  **Clona el repositorio:**
     ```bash
-    git clone [https://github.com/JuanAlvarezP/StockMasterPro.git](https://github.com/JuanAlvarezP/StockMasterPro.git)
+    git clone https://github.com/JuanAlvarezP/StockMasterPro.git
     ```
 
 2.  **Navega a la carpeta del proyecto:**
