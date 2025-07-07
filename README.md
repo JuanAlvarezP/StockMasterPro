@@ -47,7 +47,7 @@ Sigue estos pasos para clonar y ejecutar el proyecto en tu máquina local.
     ```
 
 3.  **Importa el proyecto en Eclipse:**
-    * Abre Eclipse.
+    * Abre OpenXava (Eclipse).
     * Ve a `File > Import...`.
     * Selecciona `Maven > Existing Maven Projects`.
     * En `Root Directory`, busca y selecciona la carpeta `StockMasterPro` que acabas de clonar.
